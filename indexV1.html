@@ -13,7 +13,6 @@
         body {
             font-family: 'Inter', sans-serif;
             background-color: #f8fafc; /* Tailwind gray-50 */
-            position: relative; /* Necesario para el posicionamiento del traductor */
         }
         .section-title {
             font-size: 1.5rem; /* text-2xl */
@@ -29,7 +28,6 @@
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* shadow-lg */
             padding: 1.5rem; /* p-6 */
             margin-bottom: 1.5rem; /* mb-6 */
-            position: relative; /* Para el posicionamiento de elementos internos */
         }
         .whatsapp-fab {
             position: fixed;
@@ -68,84 +66,28 @@
             margin-bottom: 0.5rem;
             display: inline-block;
         }
+        /* Estilos para la imagen de perfil */
         .profile-image-container {
             width: 150px;
             height: 150px;
             border-radius: 50%;
             overflow: hidden;
-            margin: 0 auto 1.5rem auto;
+            margin: 0 auto 1.5rem auto; /* Centrado y con margen inferior */
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             border: 4px solid white;
         }
         .profile-image {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: cover; /* Para asegurar que la imagen cubra el contenedor sin distorsionarse */
         }
-
-        /* --- ESTILOS PARA EL NUEVO TRADUCTOR --- */
-        #translator-container {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            display: flex;
-            gap: 0.5rem;
-        }
-        .translate-btn {
-            background-color: #f1f5f9; /* slate-100 */
-            color: #475569; /* slate-600 */
-            border: 1px solid #cbd5e1; /* slate-300 */
-            border-radius: 9999px; /* rounded-full */
-            padding: 0.5rem 1rem;
-            font-size: 0.75rem; /* text-xs */
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-        .translate-btn:hover {
-            background-color: #e2e8f0; /* slate-200 */
-            color: #1e293b; /* slate-800 */
-        }
-        /* Ocultar la barra superior de Google y el widget original */
-        body > .skiptranslate {
-            display: none !important;
-        }
-        .goog-te-gadget {
-            display: none !important;
-        }
-        body {
-            top: 0 !important; /* Corregir el espacio que deja la barra de google oculta */
-        }
-        iframe.goog-te-banner-frame {
-            display: none !important;
-        }
-        /* --- FIN DE ESTILOS DEL TRADUCTOR --- */
     </style>
 </head>
 <body class="text-slate-700">
 
-    <!-- Elemento oculto que Google Translate necesita para funcionar -->
-    <div id="google_translate_element" style="display:none;"></div>
-
     <div class="container mx-auto max-w-4xl p-4 md:p-8">
 
         <header class="card text-center">
-            <!-- ===== CONTENEDOR DE BOTONES DE TRADUCCIÓN (CON CLASE notranslate) ===== -->
-            <div id="translator-container" class="notranslate">
-                <button onclick="changeLanguage('en')" class="translate-btn" title="Translate to English">
-                    <i class="fas fa-globe"></i>
-                    <span>EN</span>
-                </button>
-                <button onclick="changeLanguage('es')" class="translate-btn" title="Volver a Español">
-                    <i class="fas fa-globe"></i>
-                    <span>ES</span>
-                </button>
-            </div>
-            <!-- ===== FIN DEL CONTENEDOR ===== -->
-
             <div class="profile-image-container">
                 <img src="foto_perfil.jpeg" alt="Foto de Nicolás Maure" class="profile-image" onerror="this.onerror=null;this.src='https://placehold.co/150x150/E2E8F0/2D3748?text=Foto+No+Disponible';">
             </div>
@@ -305,33 +247,9 @@
     </a>
 
     <script>
+        // Script para el año actual en el footer
         document.getElementById('currentYear').textContent = new Date().getFullYear();
     </script>
-
-    <!-- ===== NUEVOS SCRIPTS PARA EL TRADUCTOR (CORREGIDOS) ===== -->
-    <script type="text/javascript">
-        function googleTranslateElementInit() {
-            new google.translate.TranslateElement({
-                pageLanguage: 'es',
-                autoDisplay: false
-            }, 'google_translate_element');
-        }
-
-        function changeLanguage(lang) {
-            // Para volver al español (idioma original), eliminamos la cookie de traducción.
-            if (lang === 'es') {
-                document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-            }
-            // Para traducir a cualquier otro idioma, establecemos la cookie.
-            else {
-                document.cookie = 'googtrans=/es/' + lang + '; path=/;';
-            }
-            // Recargamos la página para que los cambios de la cookie surtan efecto.
-            window.location.reload();
-        }
-    </script>
-    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-    <!-- ===== FIN DE LOS SCRIPTS DEL TRADUCTOR ===== -->
-
 </body>
 </html>
+
